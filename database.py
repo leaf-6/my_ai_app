@@ -1,6 +1,6 @@
-from sqlalchemy import create_engine, Column, String, Integer, DateTime, Text
+from sqlalchemy import create_engine, Column, String, Integer, DateTime, Text, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, relationship  # 这里加上了 relationship
 from datetime import datetime
 import os
 
@@ -17,24 +17,49 @@ SessionLocal = sessionmaker(bind=engine)
 # 定义数据表
 # ============================================================
 
+class User(Base):
+    """用户表"""
+    __tablename__ = "users"
+
+    id = Column(String(50), primary_key=True)
+    username = Column(String(50), unique=True, index=True, nullable=False)
+    password_hash = Column(String(200), nullable=False)
+    created_at = Column(DateTime, default=datetime.now)
+
+    # 一个用户有多个会话
+    sessions = relationship("Session", back_populates="user")
+
+
 class Session(Base):
-    """会话表：每个对话一个记录"""
+    """会话表"""
     __tablename__ = "sessions"
 
-    id = Column(String(50), primary_key=True)          # 会话ID
-    title = Column(String(200), default="新对话")       # 会话标题
+    id = Column(String(50), primary_key=True)
+    user_id = Column(String(50), ForeignKey("users.id"), index=True)
+    title = Column(String(200), default="新对话")
     created_at = Column(DateTime, default=datetime.now)
     updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
+    # 关联用户
+    user = relationship("User", back_populates="sessions")
+    # 一个会话有多条消息
+    messages = relationship("Message", back_populates="session")
+
+
 class Message(Base):
-    """消息表：每条消息一个记录"""
+    """消息表"""
     __tablename__ = "messages"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    session_id = Column(String(50), index=True)         # 关联会话
-    sender = Column(String(10))                         # user 或 ai
-    text = Column(Text)                                 # 消息内容
+    session_id = Column(String(50), ForeignKey("sessions.id"), index=True)
+    user_id = Column(String(50), ForeignKey("users.id"), index=True)
+    sender = Column(String(10))  # user 或 ai
+    text = Column(Text)
     timestamp = Column(DateTime, default=datetime.now)
+
+    # 关联会话
+    session = relationship("Session", back_populates="messages")
+
 
 # ============================================================
 # 初始化数据库（建表）
@@ -45,17 +70,6 @@ def init_db():
     Base.metadata.create_all(engine)
     print("✅ 数据库初始化完成:", DB_PATH)
 
-# ============================================================
-# 数据库操作函数（供 main.py 调用）
-# ============================================================
-
-def get_db():
-    """获取数据库会话（用于依赖注入）"""
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 # 如果直接运行此文件，执行初始化
 if __name__ == "__main__":

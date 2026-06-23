@@ -235,7 +235,6 @@
         </div>
     </div>
 </div>
-
 <script>
     // ============================================================
     // 配置
@@ -243,33 +242,52 @@
     const API_BASE = 'http://127.0.0.1:8000';
 
     // ============================================================
-    // 全局状态
+    // 认证相关
     // ============================================================
-    let currentSessionId = null;
-    let isWaiting = false;
+    function getToken() {
+        return localStorage.getItem('ai_token');
+    }
+
+    function getUserId() {
+        return localStorage.getItem('ai_user_id');
+    }
+
+    function getUsername() {
+        return localStorage.getItem('ai_username') || '用户';
+    }
+
+    function logout() {
+        localStorage.removeItem('ai_token');
+        localStorage.removeItem('ai_user_id');
+        localStorage.removeItem('ai_username');
+        window.location.href = '/static/login.html';
+    }
+
+    // 检查是否已登录
+    const token = getToken();
+    if (!token) {
+        window.location.href = '/static/login.html';
+    }
 
     // ============================================================
-    // DOM 引用
-    // ============================================================
-    const messagesEl = document.getElementById('messageContainer');
-    const inputEl = document.getElementById('messageInput');
-    const sendBtn = document.getElementById('sendBtn');
-    const historyListEl = document.getElementById('historyList');
-    const newChatBtn = document.getElementById('newChatBtn');
-    const currentChatTitle = document.getElementById('currentChatTitle');
-    const modelSelect = document.getElementById('modelSelect');
-
-    // ============================================================
-    // API 调用
+    // API 调用（自动带上Token）
     // ============================================================
     async function apiFetch(path, options = {}) {
         const res = await fetch(API_BASE + path, {
             ...options,
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token,
                 ...(options.headers || {})
             }
         });
+
+        // 如果返回401，说明Token过期，跳转到登录页
+        if (res.status === 401) {
+            logout();
+            return;
+        }
+
         if (!res.ok) {
             const err = await res.json().catch(() => ({ detail: '请求失败' }));
             throw new Error(err.detail || '请求失败');
@@ -294,6 +312,51 @@
 
     async function deleteSession(sessionId) {
         return apiFetch(`/api/sessions/${sessionId}`, { method: 'DELETE' });
+    }
+
+    // ============================================================
+    // 全局状态
+    // ============================================================
+    let currentSessionId = null;
+    let isWaiting = false;
+
+    // ============================================================
+    // DOM 引用
+    // ============================================================
+    const messagesEl = document.getElementById('messageContainer');
+    const inputEl = document.getElementById('messageInput');
+    const sendBtn = document.getElementById('sendBtn');
+    const historyListEl = document.getElementById('historyList');
+    const newChatBtn = document.getElementById('newChatBtn');
+    const currentChatTitle = document.getElementById('currentChatTitle');
+    const modelSelect = document.getElementById('modelSelect');
+
+    // 在头部显示用户名 + 退出按钮
+    const header = document.querySelector('.chat-header');
+    if (header) {
+        const userInfo = document.createElement('span');
+        userInfo.style.cssText = 'margin-left: auto; font-size: 13px; color: #64748b; display: flex; align-items: center; gap: 10px;';
+        userInfo.innerHTML = `
+            <span>👤 ${getUsername()}</span>
+            <button id="logoutBtn" style="
+                background: none;
+                border: 1px solid #d0d7de;
+                border-radius: 6px;
+                padding: 2px 10px;
+                font-size: 12px;
+                cursor: pointer;
+                color: #e74c3c;
+            ">退出</button>
+        `;
+        // 插入到模型选择器前面
+        const modelSelectEl = document.getElementById('modelSelect');
+        if (modelSelectEl) {
+            header.insertBefore(userInfo, modelSelectEl);
+        } else {
+            header.appendChild(userInfo);
+        }
+
+        document.getElementById('logoutBtn').addEventListener('click', logout);
     }
 
     // ============================================================
@@ -438,13 +501,21 @@
         try {
             const response = await fetch(API_BASE + '/chat', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
                 body: JSON.stringify({
                     message: text,
                     user_id: currentSessionId,
                     model: modelSelect.value
                 })
             });
+
+            if (response.status === 401) {
+                logout();
+                return;
+            }
 
             if (!response.ok) {
                 const err = await response.json().catch(() => ({ detail: '请求失败' }));
@@ -521,5 +592,6 @@
 
     init();
 </script>
+
 </body>
 </html>
