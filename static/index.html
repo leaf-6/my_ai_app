@@ -118,6 +118,16 @@
             border-radius: 50%;
             display: inline-block;
         }
+        #modelSelect {
+            margin-left: auto;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #d0d7de;
+            font-size: 13px;
+            background: white;
+            outline: none;
+            cursor: pointer;
+        }
         .messages {
             flex: 1;
             padding: 16px 20px;
@@ -209,6 +219,12 @@
         <div class="chat-header">
             <span class="status-dot"></span>
             <span id="currentChatTitle">加载中...</span>
+            <select id="modelSelect">
+                <option value="glm-4-flash">⚡ 智谱GLM-4-Flash</option>
+                <option value="glm-4-plus">🧠 智谱GLM-4-Plus</option>
+                <option value="deepseek-chat">💬 DeepSeek V3</option>
+                <option value="deepseek-reasoner">🔍 DeepSeek R1</option>
+            </select>
         </div>
         <div class="messages" id="messageContainer">
             <div class="message ai">加载中...</div>
@@ -219,22 +235,29 @@
         </div>
     </div>
 </div>
+
 <script>
+    // ============================================================
+    // 配置
+    // ============================================================
+    const API_BASE = 'http://127.0.0.1:8000';
+
     // ============================================================
     // 全局状态
     // ============================================================
     let currentSessionId = null;
     let isWaiting = false;
 
-    // DOM
+    // ============================================================
+    // DOM 引用
+    // ============================================================
     const messagesEl = document.getElementById('messageContainer');
     const inputEl = document.getElementById('messageInput');
     const sendBtn = document.getElementById('sendBtn');
     const historyListEl = document.getElementById('historyList');
     const newChatBtn = document.getElementById('newChatBtn');
     const currentChatTitle = document.getElementById('currentChatTitle');
-
-    const API_BASE = 'http://127.0.0.1:8000';
+    const modelSelect = document.getElementById('modelSelect');
 
     // ============================================================
     // API 调用
@@ -401,10 +424,8 @@
         sendBtn.disabled = true;
         inputEl.disabled = true;
 
-        // 显示用户消息
         renderMessage(text, 'user');
 
-        // 创建AI消息占位
         const aiDiv = document.createElement('div');
         aiDiv.className = 'message ai';
         aiDiv.id = 'streamingMessage';
@@ -420,7 +441,8 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     message: text,
-                    user_id: currentSessionId
+                    user_id: currentSessionId,
+                    model: modelSelect.value
                 })
             });
 
@@ -429,7 +451,6 @@
                 throw new Error(err.detail || '请求失败');
             }
 
-            // 读取SSE流
             const reader = response.body.getReader();
             const decoder = new TextDecoder();
 
@@ -455,9 +476,7 @@
                                 aiDiv.textContent = fullReply;
                                 messagesEl.scrollTop = messagesEl.scrollHeight;
                             }
-                        } catch (e) {
-                            // 忽略解析错误
-                        }
+                        } catch (e) {}
                     }
                 }
             }
@@ -466,7 +485,6 @@
                 aiDiv.textContent = '（AI没有返回内容）';
             }
 
-            // 刷新侧边栏
             const sessions = await loadSessions();
             renderHistoryList(sessions, currentSessionId);
             const found = sessions.find(s => s.id === currentSessionId);
