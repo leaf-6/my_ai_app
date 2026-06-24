@@ -1,4 +1,5 @@
 .env
+chat.db
 venv/
 __pycache__/
 *.pyc
