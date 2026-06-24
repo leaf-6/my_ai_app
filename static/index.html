@@ -13,6 +13,10 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            transition: background 0.3s;
+        }
+        body.dark-mode {
+            background: #121212;
         }
         .app {
             display: flex;
@@ -24,6 +28,11 @@
             border-radius: 18px;
             box-shadow: 0 12px 40px rgba(0,0,0,0.15);
             overflow: hidden;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        body.dark-mode .app {
+            background: #1e1e2e;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.6);
         }
         .sidebar {
             width: 260px;
@@ -32,6 +41,11 @@
             display: flex;
             flex-direction: column;
             flex-shrink: 0;
+            transition: background 0.3s, border-color 0.3s;
+        }
+        body.dark-mode .sidebar {
+            background: #1a1a2e;
+            border-right-color: #2a2a4e;
         }
         .sidebar-header {
             padding: 16px 18px;
@@ -39,11 +53,26 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: border-color 0.3s;
         }
-        .sidebar-header h3 { font-size: 15px; color: #1e293b; }
+        body.dark-mode .sidebar-header {
+            border-bottom-color: #2a2a4e;
+        }
+        .sidebar-header h3 {
+            font-size: 15px;
+            color: #1e293b;
+        }
+        body.dark-mode .sidebar-header h3 {
+            color: #e0e0e0;
+        }
         .new-chat-btn {
-            background: #1a73e8; color: white; border: none;
-            border-radius: 20px; padding: 4px 14px; font-size: 13px; cursor: pointer;
+            background: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 4px 14px;
+            font-size: 13px;
+            cursor: pointer;
         }
         .new-chat-btn:hover { background: #1557b0; }
         .history-list {
@@ -56,18 +85,25 @@
             border-radius: 10px;
             cursor: pointer;
             margin-bottom: 4px;
-            transition: background 0.15s;
+            transition: background 0.15s, color 0.3s;
             border-left: 3px solid transparent;
+            color: #1e293b;
+        }
+        body.dark-mode .history-item {
+            color: #c0c0d0;
         }
         .history-item:hover { background: #eef2f7; }
+        body.dark-mode .history-item:hover { background: #2a2a4e; }
         .history-item.active {
             background: #e0e8f5;
             border-left-color: #1a73e8;
         }
+        body.dark-mode .history-item.active {
+            background: #1a2a4a;
+        }
         .history-item .title {
             font-size: 14px;
             font-weight: 500;
-            color: #0f172a;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -100,6 +136,11 @@
             display: flex;
             flex-direction: column;
             min-width: 0;
+            background: white;
+            transition: background 0.3s;
+        }
+        body.dark-mode .chat-area {
+            background: #1e1e2e;
         }
         .chat-header {
             background: white;
@@ -107,10 +148,17 @@
             border-bottom: 1px solid #e8ecf0;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             flex-shrink: 0;
             font-weight: 600;
             color: #0f172a;
+            flex-wrap: wrap;
+            transition: background 0.3s, border-color 0.3s, color 0.3s;
+        }
+        body.dark-mode .chat-header {
+            background: #1a1a2e;
+            border-bottom-color: #2a2a4e;
+            color: #e0e0e0;
         }
         .chat-header .status-dot {
             width: 8px; height: 8px;
@@ -118,6 +166,23 @@
             border-radius: 50%;
             display: inline-block;
         }
+        .chat-header .btn-icon {
+            padding: 4px 10px;
+            background: none;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            color: #1e293b;
+            transition: background 0.2s, border-color 0.3s, color 0.3s;
+            white-space: nowrap;
+        }
+        body.dark-mode .chat-header .btn-icon {
+            border-color: #3a3a5e;
+            color: #c0c0d0;
+        }
+        .chat-header .btn-icon:hover { background: #f0f2f5; }
+        body.dark-mode .chat-header .btn-icon:hover { background: #2a2a4e; }
         #modelSelect {
             margin-left: auto;
             padding: 4px 10px;
@@ -127,6 +192,12 @@
             background: white;
             outline: none;
             cursor: pointer;
+            transition: background 0.3s, border-color 0.3s, color 0.3s;
+        }
+        body.dark-mode #modelSelect {
+            background: #2a2a4e;
+            border-color: #3a3a5e;
+            color: #c0c0d0;
         }
         .messages {
             flex: 1;
@@ -136,6 +207,10 @@
             flex-direction: column;
             gap: 12px;
             background: #f7f9fc;
+            transition: background 0.3s;
+        }
+        body.dark-mode .messages {
+            background: #12121e;
         }
         .message {
             max-width: 78%;
@@ -145,6 +220,33 @@
             line-height: 1.6;
             word-wrap: break-word;
             animation: fadeIn 0.25s ease;
+            position: relative;
+            transition: background 0.3s, color 0.3s, border-color 0.3s;
+        }
+        .message .copy-btn {
+            position: absolute;
+            top: 4px;
+            right: 6px;
+            background: rgba(255,255,255,0.85);
+            border: 1px solid #d0d7de;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            padding: 2px 6px;
+            color: #64748b;
+            z-index: 10;
+            transition: background 0.2s;
+        }
+        .message .copy-btn:hover {
+            background: #e8ecf1;
+        }
+        body.dark-mode .message .copy-btn {
+            background: #2a2a4e;
+            border-color: #3a3a5e;
+            color: #c0c0d0;
+        }
+        body.dark-mode .message .copy-btn:hover {
+            background: #3a3a5e;
         }
         @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
         .message.user {
@@ -160,6 +262,11 @@
             border: 1px solid #e2e8f0;
             border-bottom-left-radius: 4px;
         }
+        body.dark-mode .message.ai {
+            background: #1e2a4a;
+            color: #e0e0e0;
+            border-color: #2a3a5e;
+        }
         .message .loading-dots::after {
             content: '...';
             animation: dots 1.2s steps(3, end) infinite;
@@ -172,6 +279,11 @@
             background: white;
             border-top: 1px solid #e8ecf0;
             flex-shrink: 0;
+            transition: background 0.3s, border-color 0.3s;
+        }
+        body.dark-mode .input-area {
+            background: #1a1a2e;
+            border-top-color: #2a2a4e;
         }
         .input-area input {
             flex: 1;
@@ -180,7 +292,14 @@
             border-radius: 24px;
             font-size: 15px;
             outline: none;
-            transition: border-color 0.2s;
+            transition: border-color 0.2s, background 0.3s, color 0.3s;
+            background: white;
+            color: #1e293b;
+        }
+        body.dark-mode .input-area input {
+            background: #2a2a4e;
+            border-color: #3a3a5e;
+            color: #e0e0e0;
         }
         .input-area input:focus { border-color: #1a73e8; }
         .input-area button {
@@ -207,27 +326,138 @@
             transition: all 0.2s;
             line-height: 1;
         }
+        body.dark-mode .input-area .icon-btn {
+            background: #2a2a4e;
+            border-color: #3a3a5e;
+        }
         .input-area .icon-btn:hover { background: #e5e8ec; }
+        body.dark-mode .input-area .icon-btn:hover { background: #3a3a5e; }
         .input-area .icon-btn.listening {
             background: #e8f0fe;
             border-color: #1a73e8;
         }
-        .read-btn {
-            margin-left: auto;
-            padding: 4px 10px;
-            background: none;
-            border: 1px solid #d0d7de;
-            border-radius: 6px;
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.2s;
-            color: #1e293b;
+        body.dark-mode .input-area .icon-btn.listening {
+            background: #1a2a4a;
+            border-color: #1a73e8;
         }
-        .read-btn:hover { background: #f0f2f5; }
         .messages::-webkit-scrollbar { width: 4px; }
         .messages::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        body.dark-mode .messages::-webkit-scrollbar-thumb { background: #3a3a5e; }
         .history-list::-webkit-scrollbar { width: 3px; }
         .history-list::-webkit-scrollbar-thumb { background: #d0d7de; border-radius: 4px; }
+        body.dark-mode .history-list::-webkit-scrollbar-thumb { background: #3a3a5e; }
+
+        .search-box {
+            padding: 8px 14px;
+            border-bottom: 1px solid #e2e8f0;
+            transition: border-color 0.3s;
+        }
+        body.dark-mode .search-box {
+            border-bottom-color: #2a2a4e;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 6px 12px;
+            border: 1px solid #d0d7de;
+            border-radius: 16px;
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.2s, background 0.3s, color 0.3s;
+            background: white;
+            color: #1e293b;
+        }
+        body.dark-mode .search-box input {
+            background: #2a2a4e;
+            border-color: #3a3a5e;
+            color: #e0e0e0;
+        }
+        .search-box input:focus { border-color: #1a73e8; }
+        .search-box input::placeholder { color: #94a3b8; }
+
+        .highlight {
+            background: #fde047;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+        body.dark-mode .highlight {
+            background: #fbbf24;
+            color: #1e293b;
+        }
+
+        .rename-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .rename-modal.show { display: flex; }
+        .rename-modal .modal-content {
+            background: white;
+            padding: 24px 32px 28px;
+            border-radius: 16px;
+            width: 360px;
+            max-width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        body.dark-mode .rename-modal .modal-content {
+            background: #1e1e2e;
+        }
+        .rename-modal h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+            color: #0f172a;
+        }
+        body.dark-mode .rename-modal h3 {
+            color: #e0e0e0;
+        }
+        .rename-modal input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid #d0d7de;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            margin-bottom: 12px;
+            transition: background 0.3s, color 0.3s, border-color 0.3s;
+            background: white;
+            color: #1e293b;
+        }
+        body.dark-mode .rename-modal input {
+            background: #2a2a4e;
+            border-color: #3a3a5e;
+            color: #e0e0e0;
+        }
+        .rename-modal input:focus { border-color: #1a73e8; }
+        .rename-modal .modal-btns {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+        .rename-modal .modal-btns button {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .rename-modal .modal-btns .cancel-btn {
+            background: #f0f2f5;
+            color: #1e293b;
+        }
+        body.dark-mode .rename-modal .modal-btns .cancel-btn {
+            background: #2a2a4e;
+            color: #c0c0d0;
+        }
+        .rename-modal .modal-btns .cancel-btn:hover { background: #e5e8ec; }
+        .rename-modal .modal-btns .confirm-btn {
+            background: #1a73e8;
+            color: white;
+        }
+        .rename-modal .modal-btns .confirm-btn:hover { background: #1557b0; }
     </style>
 </head>
 <body>
@@ -238,6 +468,9 @@
             <h3>📋 历史对话</h3>
             <button class="new-chat-btn" id="newChatBtn">＋ 新建</button>
         </div>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 搜索消息..." />
+        </div>
         <div class="history-list" id="historyList">
             <div class="empty-history">加载中...</div>
         </div>
@@ -247,7 +480,12 @@
         <div class="chat-header">
             <span class="status-dot"></span>
             <span id="currentChatTitle">加载中...</span>
-            <button class="read-btn" id="voiceOutputBtn">🔊 朗读</button>
+
+            <button class="btn-icon" id="renameBtn" title="重命名对话">✏️</button>
+            <button class="btn-icon" id="exportBtn" title="导出聊天记录">📥</button>
+            <button class="btn-icon" id="themeBtn" title="切换暗黑模式">🌙</button>
+            <button class="btn-icon" id="voiceOutputBtn">🔊</button>
+
             <select id="modelSelect">
                 <option value="glm-4-flash">⚡ 智谱GLM-4-Flash</option>
                 <option value="glm-4-plus">🧠 智谱GLM-4-Plus</option>
@@ -255,13 +493,26 @@
                 <option value="deepseek-reasoner">🔍 DeepSeek R1</option>
             </select>
         </div>
+
         <div class="messages" id="messageContainer">
             <div class="message ai">加载中...</div>
         </div>
+
         <div class="input-area">
             <input type="text" id="messageInput" placeholder="输入你的问题..." autofocus />
             <button class="icon-btn" id="voiceInputBtn" title="点击说话">🎤</button>
             <button id="sendBtn">发送</button>
+        </div>
+    </div>
+</div>
+
+<div class="rename-modal" id="renameModal">
+    <div class="modal-content">
+        <h3>✏️ 重命名对话</h3>
+        <input type="text" id="renameInput" placeholder="输入新名称..." />
+        <div class="modal-btns">
+            <button class="cancel-btn" id="renameCancel">取消</button>
+            <button class="confirm-btn" id="renameConfirm">确认</button>
         </div>
     </div>
 </div>
@@ -358,19 +609,158 @@
     const currentChatTitle = document.getElementById('currentChatTitle');
     const modelSelect = document.getElementById('modelSelect');
 
-    // 显示用户名
+    const renameBtn = document.getElementById('renameBtn');
+    const renameModal = document.getElementById('renameModal');
+    const renameInput = document.getElementById('renameInput');
+    const renameCancel = document.getElementById('renameCancel');
+    const renameConfirm = document.getElementById('renameConfirm');
+    const exportBtn = document.getElementById('exportBtn');
+    const themeBtn = document.getElementById('themeBtn');
+    const searchInput = document.getElementById('searchInput');
+
     const header = document.querySelector('.chat-header');
     if (header) {
         const userInfo = document.createElement('span');
-        userInfo.style.cssText = 'font-size: 13px; color: #64748b; margin-left: 8px;';
+        userInfo.style.cssText = 'font-size: 13px; color: #64748b; margin-left: 4px;';
         userInfo.textContent = '👤 ' + getUsername();
-        const readBtn = document.getElementById('voiceOutputBtn');
-        if (readBtn) {
-            header.insertBefore(userInfo, readBtn);
+        header.insertBefore(userInfo, document.getElementById('renameBtn'));
+    }
+
+    // ============================================================
+    // 1. 暗黑模式
+    // ============================================================
+    let darkMode = localStorage.getItem('darkMode') === 'true';
+
+    function applyTheme() {
+        if (darkMode) {
+            document.body.classList.add('dark-mode');
+            themeBtn.textContent = '☀️';
         } else {
-            header.appendChild(userInfo);
+            document.body.classList.remove('dark-mode');
+            themeBtn.textContent = '🌙';
         }
     }
+
+    themeBtn.addEventListener('click', function() {
+        darkMode = !darkMode;
+        localStorage.setItem('darkMode', darkMode);
+        applyTheme();
+    });
+    applyTheme();
+
+    // ============================================================
+    // 2. 搜索功能
+    // ============================================================
+    let searchKeyword = '';
+
+    function highlightText(text, keyword) {
+        if (!keyword || !text) return text;
+        const regex = new RegExp(`(${keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+        return text.replace(regex, '<span class="highlight">$1</span>');
+    }
+
+    function filterMessages(keyword) {
+        searchKeyword = keyword.trim();
+        const allMessages = messagesEl.querySelectorAll('.message');
+        allMessages.forEach(msg => {
+            const text = msg.textContent || msg.innerText;
+            if (!searchKeyword || text.toLowerCase().includes(searchKeyword.toLowerCase())) {
+                msg.style.display = '';
+                if (searchKeyword) {
+                    const html = msg.innerHTML;
+                    if (!html.includes('highlight')) {
+                        const originalText = msg.textContent || msg.innerText;
+                        msg.innerHTML = highlightText(originalText, searchKeyword);
+                    }
+                } else {
+                    const originalText = msg.textContent || msg.innerText;
+                    msg.innerHTML = originalText;
+                }
+            } else {
+                msg.style.display = 'none';
+            }
+        });
+    }
+
+    searchInput.addEventListener('input', function() {
+        filterMessages(this.value);
+    });
+
+    // ============================================================
+    // 3. 重命名对话
+    // ============================================================
+    renameBtn.addEventListener('click', function() {
+        const currentTitle = currentChatTitle.textContent;
+        renameInput.value = currentTitle;
+        renameModal.classList.add('show');
+        renameInput.focus();
+        renameInput.select();
+    });
+
+    renameCancel.addEventListener('click', function() {
+        renameModal.classList.remove('show');
+    });
+
+    renameConfirm.addEventListener('click', async function() {
+        const newTitle = renameInput.value.trim();
+        if (!newTitle) {
+            alert('请输入新名称');
+            return;
+        }
+        if (!currentSessionId) {
+            alert('没有选中的对话');
+            return;
+        }
+
+        try {
+            currentChatTitle.textContent = newTitle;
+            const sessions = await loadSessions();
+            renderHistoryList(sessions, currentSessionId);
+            renameModal.classList.remove('show');
+        } catch (err) {
+            alert('重命名失败: ' + err.message);
+        }
+    });
+
+    renameModal.addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.classList.remove('show');
+        }
+    });
+
+    // ============================================================
+    // 4. 导出聊天记录
+    // ============================================================
+    exportBtn.addEventListener('click', function() {
+        const messages = document.querySelectorAll('.message:not([style*="display: none"])');
+        if (messages.length === 0) {
+            alert('没有可导出的消息');
+            return;
+        }
+
+        let text = `📋 聊天记录\n`;
+        text += `导出时间: ${new Date().toLocaleString()}\n`;
+        text += `对话: ${currentChatTitle.textContent}\n`;
+        text += `═`.repeat(50) + '\n\n';
+
+        for (const msg of messages) {
+            const sender = msg.classList.contains('user') ? '👤 我' : '🤖 AI';
+            const content = msg.textContent || msg.innerText;
+            if (content && !content.startsWith('👋') && !content.startsWith('❌')) {
+                text += `${sender}: ${content}\n\n`;
+            }
+        }
+
+        const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `聊天记录_${new Date().toISOString().slice(0,10)}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    });
 
     // ============================================================
     // UI 渲染
@@ -378,9 +768,54 @@
     function renderMessage(text, sender) {
         const div = document.createElement('div');
         div.className = `message ${sender}`;
-        div.innerHTML = text.replace(/\n/g, '<br>');
+        const displayText = text.replace(/\n/g, '<br>');
+
+        // 复制按钮（仅 AI 消息）
+        if (sender === 'ai') {
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-btn';
+            copyBtn.textContent = '📋';
+            copyBtn.title = '复制';
+            copyBtn.style.cssText = `
+                position: absolute;
+                top: 4px;
+                right: 6px;
+                background: rgba(255,255,255,0.85);
+                border: 1px solid #d0d7de;
+                border-radius: 4px;
+                font-size: 12px;
+                cursor: pointer;
+                padding: 2px 6px;
+                color: #64748b;
+                z-index: 10;
+            `;
+            copyBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const textContent = div.textContent || div.innerText;
+                navigator.clipboard.writeText(textContent).then(() => {
+                    copyBtn.textContent = '✅';
+                    setTimeout(() => { copyBtn.textContent = '📋'; }, 1500);
+                }).catch(() => {
+                    const range = document.createRange();
+                    range.selectNode(div);
+                    window.getSelection().removeAllRanges();
+                    window.getSelection().addRange(range);
+                    document.execCommand('copy');
+                    copyBtn.textContent = '✅';
+                    setTimeout(() => { copyBtn.textContent = '📋'; }, 1500);
+                });
+            });
+            div.appendChild(copyBtn);
+        }
+
+        div.innerHTML = displayText;
         messagesEl.appendChild(div);
         messagesEl.scrollTop = messagesEl.scrollHeight;
+
+        if (searchKeyword) {
+            filterMessages(searchKeyword);
+        }
+
         return div;
     }
 
@@ -489,7 +924,7 @@
     }
 
     // ============================================================
-    // 发送消息（流式版）
+    // 发送消息
     // ============================================================
     async function sendMessage() {
         const text = inputEl.value.trim();
@@ -700,6 +1135,13 @@
         if (e.key === 'Enter') { e.preventDefault(); sendMessage(); }
     });
     newChatBtn.addEventListener('click', newChat);
+
+    searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            filterMessages(searchInput.value);
+        }
+    });
 
     // ============================================================
     // 启动

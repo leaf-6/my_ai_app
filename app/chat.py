@@ -4,7 +4,6 @@ from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from zhipuai import ZhipuAI
 from openai import OpenAI
-import os
 import json
 from app.config import Config
 from app.database import get_db
@@ -41,7 +40,9 @@ def chat(
     history = db.query(Message).filter(Message.session_id == session_id).order_by(Message.timestamp.desc()).limit(10).all()
     history.reverse()
 
-    messages_for_ai = [{"role": "system", "content": "你是一个友好的AI助手，用中文回复。"}]
+    messages_for_ai = [
+        {"role": "system", "content": "你是一个友好的AI助手，用中文回复。"}
+    ]
     for msg in history:
         role = "user" if msg.sender == "user" else "assistant"
         messages_for_ai.append({"role": role, "content": msg.text})
@@ -50,6 +51,7 @@ def chat(
         full_reply = ""
         try:
             model_name = request.model
+            
             if model_name.startswith("glm-"):
                 api_key = Config.ZHIPU_API_KEY
                 if not api_key:
@@ -87,7 +89,7 @@ def chat(
                         yield f"data: {json.dumps({'content': content, 'done': False})}\n\n"
 
             else:
-                yield f"data: {json.dumps({'content': '❌ 不支持的模型', 'done': True, 'error': True})}\n\n"
+                yield f"data: {json.dumps({'content': '❌ 不支持的模型: ' + model_name, 'done': True, 'error': True})}\n\n"
                 return
 
             yield f"data: {json.dumps({'content': '', 'done': True})}\n\n"
@@ -106,6 +108,7 @@ def chat(
 
         except Exception as e:
             yield f"data: {json.dumps({'content': '❌ AI调用失败: ' + str(e), 'done': True, 'error': True})}\n\n"
+            print(f"流式错误: {e}")
 
     return StreamingResponse(
         generate(),
