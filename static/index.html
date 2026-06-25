@@ -15,9 +15,7 @@
             height: 100vh;
             transition: background 0.3s;
         }
-        body.dark-mode {
-            background: #121212;
-        }
+        body.dark-mode { background: #121212; }
         .app {
             display: flex;
             width: 960px;
@@ -30,10 +28,7 @@
             overflow: hidden;
             transition: background 0.3s, box-shadow 0.3s;
         }
-        body.dark-mode .app {
-            background: #1e1e2e;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.6);
-        }
+        body.dark-mode .app { background: #1e1e2e; box-shadow: 0 12px 40px rgba(0,0,0,0.6); }
         .sidebar {
             width: 260px;
             background: #f7f9fc;
@@ -43,10 +38,7 @@
             flex-shrink: 0;
             transition: background 0.3s, border-color 0.3s;
         }
-        body.dark-mode .sidebar {
-            background: #1a1a2e;
-            border-right-color: #2a2a4e;
-        }
+        body.dark-mode .sidebar { background: #1a1a2e; border-right-color: #2a2a4e; }
         .sidebar-header {
             padding: 16px 18px;
             border-bottom: 1px solid #e2e8f0;
@@ -55,16 +47,9 @@
             align-items: center;
             transition: border-color 0.3s;
         }
-        body.dark-mode .sidebar-header {
-            border-bottom-color: #2a2a4e;
-        }
-        .sidebar-header h3 {
-            font-size: 15px;
-            color: #1e293b;
-        }
-        body.dark-mode .sidebar-header h3 {
-            color: #e0e0e0;
-        }
+        body.dark-mode .sidebar-header { border-bottom-color: #2a2a4e; }
+        .sidebar-header h3 { font-size: 15px; color: #1e293b; }
+        body.dark-mode .sidebar-header h3 { color: #e0e0e0; }
         .new-chat-btn {
             background: #1a73e8;
             color: white;
@@ -89,18 +74,14 @@
             border-left: 3px solid transparent;
             color: #1e293b;
         }
-        body.dark-mode .history-item {
-            color: #c0c0d0;
-        }
+        body.dark-mode .history-item { color: #c0c0d0; }
         .history-item:hover { background: #eef2f7; }
         body.dark-mode .history-item:hover { background: #2a2a4e; }
         .history-item.active {
             background: #e0e8f5;
             border-left-color: #1a73e8;
         }
-        body.dark-mode .history-item.active {
-            background: #1a2a4a;
-        }
+        body.dark-mode .history-item.active { background: #1a2a4a; }
         .history-item .title {
             font-size: 14px;
             font-weight: 500;
@@ -138,10 +119,9 @@
             min-width: 0;
             background: white;
             transition: background 0.3s;
+            position: relative;
         }
-        body.dark-mode .chat-area {
-            background: #1e1e2e;
-        }
+        body.dark-mode .chat-area { background: #1e1e2e; }
         .chat-header {
             background: white;
             padding: 14px 24px;
@@ -177,10 +157,7 @@
             transition: background 0.2s, border-color 0.3s, color 0.3s;
             white-space: nowrap;
         }
-        body.dark-mode .chat-header .btn-icon {
-            border-color: #3a3a5e;
-            color: #c0c0d0;
-        }
+        body.dark-mode .chat-header .btn-icon { border-color: #3a3a5e; color: #c0c0d0; }
         .chat-header .btn-icon:hover { background: #f0f2f5; }
         body.dark-mode .chat-header .btn-icon:hover { background: #2a2a4e; }
         #modelSelect {
@@ -194,11 +171,7 @@
             cursor: pointer;
             transition: background 0.3s, border-color 0.3s, color 0.3s;
         }
-        body.dark-mode #modelSelect {
-            background: #2a2a4e;
-            border-color: #3a3a5e;
-            color: #c0c0d0;
-        }
+        body.dark-mode #modelSelect { background: #2a2a4e; border-color: #3a3a5e; color: #c0c0d0; }
         .messages {
             flex: 1;
             padding: 16px 20px;
@@ -208,10 +181,9 @@
             gap: 12px;
             background: #f7f9fc;
             transition: background 0.3s;
+            position: relative;
         }
-        body.dark-mode .messages {
-            background: #12121e;
-        }
+        body.dark-mode .messages { background: #12121e; }
         .message {
             max-width: 78%;
             padding: 10px 16px;
@@ -235,19 +207,21 @@
             padding: 2px 6px;
             color: #64748b;
             z-index: 10;
-            transition: background 0.2s;
         }
-        .message .copy-btn:hover {
-            background: #e8ecf1;
-        }
+        .message .copy-btn:hover { background: #e8ecf1; }
         body.dark-mode .message .copy-btn {
             background: #2a2a4e;
             border-color: #3a3a5e;
             color: #c0c0d0;
         }
-        body.dark-mode .message .copy-btn:hover {
-            background: #3a3a5e;
+        body.dark-mode .message .copy-btn:hover { background: #3a3a5e; }
+        .message .time {
+            font-size: 10px;
+            color: #94a3b8;
+            margin-top: 4px;
+            text-align: right;
         }
+        body.dark-mode .message .time { color: #64748b; }
         @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
         .message.user {
             align-self: flex-end;
@@ -281,10 +255,7 @@
             flex-shrink: 0;
             transition: background 0.3s, border-color 0.3s;
         }
-        body.dark-mode .input-area {
-            background: #1a1a2e;
-            border-top-color: #2a2a4e;
-        }
+        body.dark-mode .input-area { background: #1a1a2e; border-top-color: #2a2a4e; }
         .input-area input {
             flex: 1;
             padding: 10px 16px;
@@ -296,11 +267,7 @@
             background: white;
             color: #1e293b;
         }
-        body.dark-mode .input-area input {
-            background: #2a2a4e;
-            border-color: #3a3a5e;
-            color: #e0e0e0;
-        }
+        body.dark-mode .input-area input { background: #2a2a4e; border-color: #3a3a5e; color: #e0e0e0; }
         .input-area input:focus { border-color: #1a73e8; }
         .input-area button {
             padding: 10px 20px;
@@ -326,20 +293,14 @@
             transition: all 0.2s;
             line-height: 1;
         }
-        body.dark-mode .input-area .icon-btn {
-            background: #2a2a4e;
-            border-color: #3a3a5e;
-        }
+        body.dark-mode .input-area .icon-btn { background: #2a2a4e; border-color: #3a3a5e; }
         .input-area .icon-btn:hover { background: #e5e8ec; }
         body.dark-mode .input-area .icon-btn:hover { background: #3a3a5e; }
         .input-area .icon-btn.listening {
             background: #e8f0fe;
             border-color: #1a73e8;
         }
-        body.dark-mode .input-area .icon-btn.listening {
-            background: #1a2a4a;
-            border-color: #1a73e8;
-        }
+        body.dark-mode .input-area .icon-btn.listening { background: #1a2a4a; border-color: #1a73e8; }
         .messages::-webkit-scrollbar { width: 4px; }
         .messages::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         body.dark-mode .messages::-webkit-scrollbar-thumb { background: #3a3a5e; }
@@ -352,9 +313,7 @@
             border-bottom: 1px solid #e2e8f0;
             transition: border-color 0.3s;
         }
-        body.dark-mode .search-box {
-            border-bottom-color: #2a2a4e;
-        }
+        body.dark-mode .search-box { border-bottom-color: #2a2a4e; }
         .search-box input {
             width: 100%;
             padding: 6px 12px;
@@ -366,11 +325,7 @@
             background: white;
             color: #1e293b;
         }
-        body.dark-mode .search-box input {
-            background: #2a2a4e;
-            border-color: #3a3a5e;
-            color: #e0e0e0;
-        }
+        body.dark-mode .search-box input { background: #2a2a4e; border-color: #3a3a5e; color: #e0e0e0; }
         .search-box input:focus { border-color: #1a73e8; }
         .search-box input::placeholder { color: #94a3b8; }
 
@@ -379,10 +334,7 @@
             padding: 0 2px;
             border-radius: 2px;
         }
-        body.dark-mode .highlight {
-            background: #fbbf24;
-            color: #1e293b;
-        }
+        body.dark-mode .highlight { background: #fbbf24; color: #1e293b; }
 
         .rename-modal {
             display: none;
@@ -402,17 +354,13 @@
             max-width: 90%;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
-        body.dark-mode .rename-modal .modal-content {
-            background: #1e1e2e;
-        }
+        body.dark-mode .rename-modal .modal-content { background: #1e1e2e; }
         .rename-modal h3 {
             font-size: 18px;
             margin-bottom: 12px;
             color: #0f172a;
         }
-        body.dark-mode .rename-modal h3 {
-            color: #e0e0e0;
-        }
+        body.dark-mode .rename-modal h3 { color: #e0e0e0; }
         .rename-modal input {
             width: 100%;
             padding: 10px 14px;
@@ -425,11 +373,7 @@
             background: white;
             color: #1e293b;
         }
-        body.dark-mode .rename-modal input {
-            background: #2a2a4e;
-            border-color: #3a3a5e;
-            color: #e0e0e0;
-        }
+        body.dark-mode .rename-modal input { background: #2a2a4e; border-color: #3a3a5e; color: #e0e0e0; }
         .rename-modal input:focus { border-color: #1a73e8; }
         .rename-modal .modal-btns {
             display: flex;
@@ -448,16 +392,103 @@
             background: #f0f2f5;
             color: #1e293b;
         }
-        body.dark-mode .rename-modal .modal-btns .cancel-btn {
-            background: #2a2a4e;
-            color: #c0c0d0;
-        }
+        body.dark-mode .rename-modal .modal-btns .cancel-btn { background: #2a2a4e; color: #c0c0d0; }
         .rename-modal .modal-btns .cancel-btn:hover { background: #e5e8ec; }
         .rename-modal .modal-btns .confirm-btn {
             background: #1a73e8;
             color: white;
         }
         .rename-modal .modal-btns .confirm-btn:hover { background: #1557b0; }
+
+        /* ===== 滚动到底部按钮 ===== */
+        /* ===== 滚动到底部按钮 ===== */
+        .scroll-bottom-btn {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            color: #1a73e8;
+            border: 1px solid #e2e8f0;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 6px;
+            flex-shrink: 0;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .scroll-bottom-btn.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .scroll-bottom-btn:hover {
+            background: #f1f3f4;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+            transform: translateX(-50%) scale(1.08);
+        }
+        /* 暗黑模式适配 */
+        body.dark-mode .scroll-bottom-btn {
+            background: #1e2a4a;
+            border-color: #3a4a6e;
+            color: #8ab4f8;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        body.dark-mode .scroll-bottom-btn:hover {
+            background: #2a3a5e;
+        }
+
+        /* ===== 骨架屏 ===== */
+        .skeleton {
+            background: linear-gradient(90deg, #e8ecf1 25%, #d5d9e0 50%, #e8ecf1 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 12px;
+        }
+        body.dark-mode .skeleton {
+            background: linear-gradient(90deg, #1e2a4a 25%, #2a3a5e 50%, #1e2a4a 75%);
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .skeleton-text {
+            height: 16px;
+            margin: 4px 0;
+            border-radius: 4px;
+        }
+        .skeleton-text.short { width: 60%; }
+        .skeleton-text.medium { width: 80%; }
+        .skeleton-text.long { width: 100%; }
+        .skeleton-message {
+            padding: 16px 20px;
+            max-width: 78%;
+            align-self: flex-start;
+            background: white;
+            border-radius: 14px;
+            border: 1px solid #e2e8f0;
+            min-width: 150px;
+        }
+        body.dark-mode .skeleton-message {
+            background: #1e2a4a;
+            border-color: #2a3a5e;
+        }
+        .skeleton-message .skeleton {
+            background: linear-gradient(90deg, #e8ecf1 25%, #d5d9e0 50%, #e8ecf1 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        body.dark-mode .skeleton-message .skeleton {
+            background: linear-gradient(90deg, #2a3a5e 25%, #3a4a6e 50%, #2a3a5e 75%);
+        }
     </style>
 </head>
 <body>
@@ -480,12 +511,10 @@
         <div class="chat-header">
             <span class="status-dot"></span>
             <span id="currentChatTitle">加载中...</span>
-
             <button class="btn-icon" id="renameBtn" title="重命名对话">✏️</button>
             <button class="btn-icon" id="exportBtn" title="导出聊天记录">📥</button>
             <button class="btn-icon" id="themeBtn" title="切换暗黑模式">🌙</button>
             <button class="btn-icon" id="voiceOutputBtn">🔊</button>
-
             <select id="modelSelect">
                 <option value="glm-4-flash">⚡ 智谱GLM-4-Flash</option>
                 <option value="glm-4-plus">🧠 智谱GLM-4-Plus</option>
@@ -496,7 +525,9 @@
 
         <div class="messages" id="messageContainer">
             <div class="message ai">加载中...</div>
+            
         </div>
+        <button class="scroll-bottom-btn" id="scrollBottomBtn">↓</button>
 
         <div class="input-area">
             <input type="text" id="messageInput" placeholder="输入你的问题..." autofocus />
@@ -516,642 +547,7 @@
         </div>
     </div>
 </div>
+    <script type="module" src="/static/js/core.js"></script>
 
-<script>
-    // ============================================================
-    // 配置
-    // ============================================================
-    const API_BASE = 'http://127.0.0.1:8000';
-
-    // ============================================================
-    // 认证相关
-    // ============================================================
-    function getToken() {
-        return localStorage.getItem('ai_token');
-    }
-
-    function getUserId() {
-        return localStorage.getItem('ai_user_id');
-    }
-
-    function getUsername() {
-        return localStorage.getItem('ai_username') || '用户';
-    }
-
-    function logout() {
-        localStorage.removeItem('ai_token');
-        localStorage.removeItem('ai_user_id');
-        localStorage.removeItem('ai_username');
-        window.location.href = '/static/login.html';
-    }
-
-    const token = getToken();
-    if (!token) {
-        window.location.href = '/static/login.html';
-    }
-
-    // ============================================================
-    // API 调用
-    // ============================================================
-    async function apiFetch(path, options = {}) {
-        const res = await fetch(API_BASE + path, {
-            ...options,
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token,
-                ...(options.headers || {})
-            }
-        });
-        if (res.status === 401) {
-            logout();
-            return;
-        }
-        if (!res.ok) {
-            const err = await res.json().catch(() => ({ detail: '请求失败' }));
-            throw new Error(err.detail || '请求失败');
-        }
-        return res.json();
-    }
-
-    async function loadSessions() {
-        return apiFetch('/api/sessions');
-    }
-
-    async function loadMessages(sessionId) {
-        return apiFetch(`/api/sessions/${sessionId}/messages`);
-    }
-
-    async function createSession(title = '新对话') {
-        return apiFetch('/api/sessions', {
-            method: 'POST',
-            body: JSON.stringify({ title })
-        });
-    }
-
-    async function deleteSession(sessionId) {
-        return apiFetch(`/api/sessions/${sessionId}`, { method: 'DELETE' });
-    }
-
-    // ============================================================
-    // 全局状态
-    // ============================================================
-    let currentSessionId = null;
-    let isWaiting = false;
-
-    // ============================================================
-    // DOM 引用
-    // ============================================================
-    const messagesEl = document.getElementById('messageContainer');
-    const inputEl = document.getElementById('messageInput');
-    const sendBtn = document.getElementById('sendBtn');
-    const historyListEl = document.getElementById('historyList');
-    const newChatBtn = document.getElementById('newChatBtn');
-    const currentChatTitle = document.getElementById('currentChatTitle');
-    const modelSelect = document.getElementById('modelSelect');
-
-    const renameBtn = document.getElementById('renameBtn');
-    const renameModal = document.getElementById('renameModal');
-    const renameInput = document.getElementById('renameInput');
-    const renameCancel = document.getElementById('renameCancel');
-    const renameConfirm = document.getElementById('renameConfirm');
-    const exportBtn = document.getElementById('exportBtn');
-    const themeBtn = document.getElementById('themeBtn');
-    const searchInput = document.getElementById('searchInput');
-
-    const header = document.querySelector('.chat-header');
-    if (header) {
-        const userInfo = document.createElement('span');
-        userInfo.style.cssText = 'font-size: 13px; color: #64748b; margin-left: 4px;';
-        userInfo.textContent = '👤 ' + getUsername();
-        header.insertBefore(userInfo, document.getElementById('renameBtn'));
-    }
-
-    // ============================================================
-    // 1. 暗黑模式
-    // ============================================================
-    let darkMode = localStorage.getItem('darkMode') === 'true';
-
-    function applyTheme() {
-        if (darkMode) {
-            document.body.classList.add('dark-mode');
-            themeBtn.textContent = '☀️';
-        } else {
-            document.body.classList.remove('dark-mode');
-            themeBtn.textContent = '🌙';
-        }
-    }
-
-    themeBtn.addEventListener('click', function() {
-        darkMode = !darkMode;
-        localStorage.setItem('darkMode', darkMode);
-        applyTheme();
-    });
-    applyTheme();
-
-    // ============================================================
-    // 2. 搜索功能
-    // ============================================================
-    let searchKeyword = '';
-
-    function highlightText(text, keyword) {
-        if (!keyword || !text) return text;
-        const regex = new RegExp(`(${keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-        return text.replace(regex, '<span class="highlight">$1</span>');
-    }
-
-    function filterMessages(keyword) {
-        searchKeyword = keyword.trim();
-        const allMessages = messagesEl.querySelectorAll('.message');
-        allMessages.forEach(msg => {
-            const text = msg.textContent || msg.innerText;
-            if (!searchKeyword || text.toLowerCase().includes(searchKeyword.toLowerCase())) {
-                msg.style.display = '';
-                if (searchKeyword) {
-                    const html = msg.innerHTML;
-                    if (!html.includes('highlight')) {
-                        const originalText = msg.textContent || msg.innerText;
-                        msg.innerHTML = highlightText(originalText, searchKeyword);
-                    }
-                } else {
-                    const originalText = msg.textContent || msg.innerText;
-                    msg.innerHTML = originalText;
-                }
-            } else {
-                msg.style.display = 'none';
-            }
-        });
-    }
-
-    searchInput.addEventListener('input', function() {
-        filterMessages(this.value);
-    });
-
-    // ============================================================
-    // 3. 重命名对话
-    // ============================================================
-    renameBtn.addEventListener('click', function() {
-        const currentTitle = currentChatTitle.textContent;
-        renameInput.value = currentTitle;
-        renameModal.classList.add('show');
-        renameInput.focus();
-        renameInput.select();
-    });
-
-    renameCancel.addEventListener('click', function() {
-        renameModal.classList.remove('show');
-    });
-
-    renameConfirm.addEventListener('click', async function() {
-        const newTitle = renameInput.value.trim();
-        if (!newTitle) {
-            alert('请输入新名称');
-            return;
-        }
-        if (!currentSessionId) {
-            alert('没有选中的对话');
-            return;
-        }
-
-        try {
-            currentChatTitle.textContent = newTitle;
-            const sessions = await loadSessions();
-            renderHistoryList(sessions, currentSessionId);
-            renameModal.classList.remove('show');
-        } catch (err) {
-            alert('重命名失败: ' + err.message);
-        }
-    });
-
-    renameModal.addEventListener('click', function(e) {
-        if (e.target === this) {
-            this.classList.remove('show');
-        }
-    });
-
-    // ============================================================
-    // 4. 导出聊天记录
-    // ============================================================
-    exportBtn.addEventListener('click', function() {
-        const messages = document.querySelectorAll('.message:not([style*="display: none"])');
-        if (messages.length === 0) {
-            alert('没有可导出的消息');
-            return;
-        }
-
-        let text = `📋 聊天记录\n`;
-        text += `导出时间: ${new Date().toLocaleString()}\n`;
-        text += `对话: ${currentChatTitle.textContent}\n`;
-        text += `═`.repeat(50) + '\n\n';
-
-        for (const msg of messages) {
-            const sender = msg.classList.contains('user') ? '👤 我' : '🤖 AI';
-            const content = msg.textContent || msg.innerText;
-            if (content && !content.startsWith('👋') && !content.startsWith('❌')) {
-                text += `${sender}: ${content}\n\n`;
-            }
-        }
-
-        const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `聊天记录_${new Date().toISOString().slice(0,10)}.txt`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    });
-
-    // ============================================================
-    // UI 渲染
-    // ============================================================
-    function renderMessage(text, sender) {
-        const div = document.createElement('div');
-        div.className = `message ${sender}`;
-        const displayText = text.replace(/\n/g, '<br>');
-
-        // 复制按钮（仅 AI 消息）
-        if (sender === 'ai') {
-            const copyBtn = document.createElement('button');
-            copyBtn.className = 'copy-btn';
-            copyBtn.textContent = '📋';
-            copyBtn.title = '复制';
-            copyBtn.style.cssText = `
-                position: absolute;
-                top: 4px;
-                right: 6px;
-                background: rgba(255,255,255,0.85);
-                border: 1px solid #d0d7de;
-                border-radius: 4px;
-                font-size: 12px;
-                cursor: pointer;
-                padding: 2px 6px;
-                color: #64748b;
-                z-index: 10;
-            `;
-            copyBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const textContent = div.textContent || div.innerText;
-                navigator.clipboard.writeText(textContent).then(() => {
-                    copyBtn.textContent = '✅';
-                    setTimeout(() => { copyBtn.textContent = '📋'; }, 1500);
-                }).catch(() => {
-                    const range = document.createRange();
-                    range.selectNode(div);
-                    window.getSelection().removeAllRanges();
-                    window.getSelection().addRange(range);
-                    document.execCommand('copy');
-                    copyBtn.textContent = '✅';
-                    setTimeout(() => { copyBtn.textContent = '📋'; }, 1500);
-                });
-            });
-            div.appendChild(copyBtn);
-        }
-
-        div.innerHTML = displayText;
-        messagesEl.appendChild(div);
-        messagesEl.scrollTop = messagesEl.scrollHeight;
-
-        if (searchKeyword) {
-            filterMessages(searchKeyword);
-        }
-
-        return div;
-    }
-
-    function renderMessages(messages) {
-        messagesEl.innerHTML = '';
-        if (!messages || messages.length === 0) {
-            renderMessage('👋 你好！我是你的 AI 助手，有什么问题尽管问我吧！', 'ai');
-            return;
-        }
-        for (const msg of messages) {
-            renderMessage(msg.text, msg.sender);
-        }
-        messagesEl.scrollTop = messagesEl.scrollHeight;
-    }
-
-    function renderHistoryList(sessions, currentId) {
-        historyListEl.innerHTML = '';
-        if (!sessions || sessions.length === 0) {
-            historyListEl.innerHTML = '<div class="empty-history">暂无历史对话<br>点击「新建」开始聊天</div>';
-            return;
-        }
-        for (const s of sessions) {
-            const div = document.createElement('div');
-            div.className = 'history-item' + (s.id === currentId ? ' active' : '');
-            const time = new Date(s.updated_at).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
-            div.innerHTML = `
-                <span class="title">${s.title || '未命名'}</span>
-                <button class="delete-btn" data-id="${s.id}">✕</button>
-                <div class="meta">${s.message_count} 条消息 · ${time}</div>
-            `;
-            div.addEventListener('click', (e) => {
-                if (e.target.classList.contains('delete-btn')) return;
-                switchSession(s.id);
-            });
-            const delBtn = div.querySelector('.delete-btn');
-            delBtn.addEventListener('click', async (e) => {
-                e.stopPropagation();
-                if (!confirm('删除此对话？')) return;
-                try {
-                    await deleteSession(s.id);
-                    await refreshAll();
-                } catch (err) {
-                    alert('删除失败: ' + err.message);
-                }
-            });
-            historyListEl.appendChild(div);
-        }
-        const active = historyListEl.querySelector('.active');
-        if (active) active.scrollIntoView({ block: 'nearest' });
-    }
-
-    // ============================================================
-    // 核心操作
-    // ============================================================
-    async function switchSession(sessionId) {
-        if (sessionId === currentSessionId) return;
-        currentSessionId = sessionId;
-        try {
-            const messages = await loadMessages(sessionId);
-            renderMessages(messages);
-            const sessions = await loadSessions();
-            const found = sessions.find(s => s.id === sessionId);
-            currentChatTitle.textContent = found ? found.title : '新对话';
-            renderHistoryList(sessions, currentSessionId);
-        } catch (err) {
-            console.error('加载消息失败:', err);
-            messagesEl.innerHTML = '<div class="message ai">❌ 加载消息失败</div>';
-        }
-        inputEl.focus();
-    }
-
-    async function refreshAll() {
-        try {
-            const sessions = await loadSessions();
-            if (sessions.length === 0) {
-                const newSession = await createSession('新对话');
-                currentSessionId = newSession.id;
-                renderMessages([]);
-                currentChatTitle.textContent = '新对话';
-                renderHistoryList([newSession], currentSessionId);
-                return;
-            }
-            if (!currentSessionId || !sessions.find(s => s.id === currentSessionId)) {
-                currentSessionId = sessions[0].id;
-            }
-            const messages = await loadMessages(currentSessionId);
-            renderMessages(messages);
-            const found = sessions.find(s => s.id === currentSessionId);
-            currentChatTitle.textContent = found ? found.title : '新对话';
-            renderHistoryList(sessions, currentSessionId);
-        } catch (err) {
-            console.error('刷新失败:', err);
-            historyListEl.innerHTML = '<div class="empty-history">❌ 加载失败: ' + err.message + '</div>';
-        }
-    }
-
-    async function newChat() {
-        try {
-            const newSession = await createSession('新对话');
-            currentSessionId = newSession.id;
-            await refreshAll();
-            inputEl.focus();
-        } catch (err) {
-            alert('创建失败: ' + err.message);
-        }
-    }
-
-    // ============================================================
-    // 发送消息
-    // ============================================================
-    async function sendMessage() {
-        const text = inputEl.value.trim();
-        if (!text || isWaiting || !currentSessionId) return;
-
-        inputEl.value = '';
-        isWaiting = true;
-        sendBtn.disabled = true;
-        inputEl.disabled = true;
-
-        renderMessage(text, 'user');
-
-        const aiDiv = document.createElement('div');
-        aiDiv.className = 'message ai';
-        aiDiv.id = 'streamingMessage';
-        aiDiv.textContent = '';
-        messagesEl.appendChild(aiDiv);
-        messagesEl.scrollTop = messagesEl.scrollHeight;
-
-        let fullReply = '';
-
-        try {
-            const response = await fetch(API_BASE + '/chat', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + token
-                },
-                body: JSON.stringify({
-                    message: text,
-                    user_id: currentSessionId,
-                    model: modelSelect.value
-                })
-            });
-
-            if (response.status === 401) {
-                logout();
-                return;
-            }
-
-            if (!response.ok) {
-                const err = await response.json().catch(() => ({ detail: '请求失败' }));
-                throw new Error(err.detail || '请求失败');
-            }
-
-            const reader = response.body.getReader();
-            const decoder = new TextDecoder();
-
-            while (true) {
-                const { done, value } = await reader.read();
-                if (done) break;
-
-                const chunk = decoder.decode(value);
-                const lines = chunk.split('\n');
-
-                for (const line of lines) {
-                    if (line.startsWith('data: ')) {
-                        const data = line.slice(6);
-                        if (data === '[DONE]') continue;
-                        try {
-                            const parsed = JSON.parse(data);
-                            if (parsed.done) {
-                                aiDiv.id = '';
-                                break;
-                            }
-                            if (parsed.content) {
-                                fullReply += parsed.content;
-                                aiDiv.textContent = fullReply;
-                                messagesEl.scrollTop = messagesEl.scrollHeight;
-                            }
-                        } catch (e) {}
-                    }
-                }
-            }
-
-            if (!fullReply) {
-                aiDiv.textContent = '（AI没有返回内容）';
-            }
-
-            const sessions = await loadSessions();
-            renderHistoryList(sessions, currentSessionId);
-            const found = sessions.find(s => s.id === currentSessionId);
-            if (found) currentChatTitle.textContent = found.title;
-
-        } catch (err) {
-            const placeholder = document.getElementById('streamingMessage');
-            if (placeholder) placeholder.remove();
-            renderMessage('❌ ' + err.message, 'ai');
-        } finally {
-            isWaiting = false;
-            sendBtn.disabled = false;
-            inputEl.disabled = false;
-            inputEl.focus();
-        }
-    }
-
-    // ============================================================
-    // 语音输入（麦克风）
-    // ============================================================
-    const voiceInputBtn = document.getElementById('voiceInputBtn');
-    let isListening = false;
-    let recognition = null;
-
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        recognition = new SpeechRecognition();
-        recognition.lang = 'zh-CN';
-        recognition.continuous = false;
-        recognition.interimResults = false;
-
-        recognition.onresult = function(event) {
-            const transcript = event.results[0][0].transcript;
-            inputEl.value = transcript;
-            isListening = false;
-            voiceInputBtn.textContent = '🎤';
-            voiceInputBtn.classList.remove('listening');
-            sendMessage();
-        };
-
-        recognition.onerror = function(event) {
-            console.error('语音识别错误:', event.error);
-            isListening = false;
-            voiceInputBtn.textContent = '🎤';
-            voiceInputBtn.classList.remove('listening');
-            if (event.error === 'not-allowed') {
-                alert('请允许浏览器使用麦克风权限');
-            }
-        };
-
-        recognition.onend = function() {
-            isListening = false;
-            voiceInputBtn.textContent = '🎤';
-            voiceInputBtn.classList.remove('listening');
-        };
-
-        voiceInputBtn.addEventListener('click', function() {
-            if (isListening) {
-                recognition.stop();
-                return;
-            }
-            try {
-                recognition.start();
-                isListening = true;
-                voiceInputBtn.textContent = '⏹️';
-                voiceInputBtn.classList.add('listening');
-            } catch (e) {
-                console.error('启动语音识别失败:', e);
-            }
-        });
-    } else {
-        voiceInputBtn.title = '浏览器不支持语音识别';
-        voiceInputBtn.style.opacity = '0.5';
-    }
-
-    // ============================================================
-    // 语音输出（朗读）
-    // ============================================================
-    const voiceOutputBtn = document.getElementById('voiceOutputBtn');
-
-    function speakText(text) {
-        if (!window.speechSynthesis) {
-            alert('浏览器不支持语音合成');
-            return;
-        }
-        window.speechSynthesis.cancel();
-
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'zh-CN';
-        utterance.rate = 1.0;
-        utterance.pitch = 1.0;
-
-        const voices = window.speechSynthesis.getVoices();
-        const zhVoice = voices.find(v => v.lang.startsWith('zh'));
-        if (zhVoice) {
-            utterance.voice = zhVoice;
-        }
-
-        window.speechSynthesis.speak(utterance);
-    }
-
-    voiceOutputBtn.addEventListener('click', function() {
-        const aiMessages = document.querySelectorAll('.message.ai');
-        if (aiMessages.length === 0) {
-            alert('没有可朗读的AI回复');
-            return;
-        }
-        const lastAiMessage = aiMessages[aiMessages.length - 1];
-        const text = lastAiMessage.textContent || lastAiMessage.innerText;
-        if (text && !text.startsWith('❌') && !text.startsWith('👋')) {
-            speakText(text);
-        } else {
-            alert('没有可朗读的有效回复');
-        }
-    });
-
-    if (window.speechSynthesis) {
-        window.speechSynthesis.getVoices();
-        window.speechSynthesis.onvoiceschanged = function() {
-            window.speechSynthesis.getVoices();
-        };
-    }
-
-    // ============================================================
-    // 事件绑定
-    // ============================================================
-    sendBtn.addEventListener('click', sendMessage);
-    inputEl.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') { e.preventDefault(); sendMessage(); }
-    });
-    newChatBtn.addEventListener('click', newChat);
-
-    searchInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            filterMessages(searchInput.value);
-        }
-    });
-
-    // ============================================================
-    // 启动
-    // ============================================================
-    async function init() {
-        await refreshAll();
-        inputEl.focus();
-    }
-
-    init();
-</script>
 </body>
 </html>
