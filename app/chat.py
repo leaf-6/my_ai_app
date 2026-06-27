@@ -9,6 +9,7 @@ from app.config import Config
 from app.database import get_db
 from app.models import Session as DBSession, Message
 from app.auth import get_current_user_id
+# from app.rag import get_rag_context
 
 router = APIRouter(tags=["chat"])
 
@@ -46,6 +47,12 @@ def chat(
     for msg in history:
         role = "user" if msg.sender == "user" else "assistant"
         messages_for_ai.append({"role": role, "content": msg.text})
+
+    # ===== RAG 上下文 =====
+    # rag_context = get_rag_context(request.message, user_id)
+    # if rag_context:
+    #     messages_for_ai[0]["content"] += rag_context
+
 
     def generate():
         full_reply = ""

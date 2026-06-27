@@ -458,11 +458,141 @@ inputEl.addEventListener('keydown', (e) => {
 });
 newChatBtn.addEventListener('click', newChat);
 
+
+// ============================================================
+// 文档上传 + 知识库管理
+// ============================================================
+const uploadBtn = document.getElementById('uploadBtn');
+const fileInput = document.getElementById('fileInput');
+const docListEl = document.getElementById('docList');
+const docCountEl = document.getElementById('docCount');
+
+// ===== 知识库管理函数 =====
+function getDocList() {
+    try {
+        const data = localStorage.getItem(`docs_${getUserId()}`);
+        return data ? JSON.parse(data) : [];
+    } catch {
+        return [];
+    }
+}
+
+function saveDocList(docs) {
+    localStorage.setItem(`docs_${getUserId()}`, JSON.stringify(docs));
+}
+
+function renderDocList() {
+    const docs = getDocList();
+    if (!docListEl) return;
+    
+    if (docs.length === 0) {
+        docListEl.innerHTML = '<span style="color: #94a3b8; font-size: 12px;">暂无文档</span>';
+        if (docCountEl) docCountEl.textContent = '0 个文档';
+        return;
+    }
+    
+    let html = '';
+    docs.forEach((doc, index) => {
+        const icon = doc.name.endsWith('.pdf') ? '📄' : doc.name.endsWith('.docx') ? '📝' : '📃';
+        html += `
+            <div style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 4px 0;
+                border-bottom: 1px solid #f0f2f5;
+            ">
+                <span style="font-size: 13px; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 160px;">
+                    ${icon} ${doc.name}
+                </span>
+                <button onclick="deleteDoc(${index})" style="
+                    background: none;
+                    border: none;
+                    color: #94a3b8;
+                    cursor: pointer;
+                    font-size: 12px;
+                    padding: 0 4px;
+                ">✕</button>
+            </div>
+        `;
+    });
+    docListEl.innerHTML = html;
+    if (docCountEl) docCountEl.textContent = `${docs.length} 个文档`;
+}
+
+// 删除文档
+window.deleteDoc = function(index) {
+    
+    const docs = getDocList();
+    docs.splice(index, 1);
+    saveDocList(docs);
+    renderDocList();
+};
+
+// 上传成功后添加到列表
+function addDocToList(filename) {
+    const docs = getDocList();
+    if (!docs.find(d => d.name === filename)) {
+        docs.push({ name: filename, uploadTime: new Date().toISOString() });
+        saveDocList(docs);
+    }
+    renderDocList();
+}
+
+// ===== 文件上传（唯一的事件监听） =====
+if (uploadBtn && fileInput) {
+    uploadBtn.addEventListener('click', function() {
+        fileInput.click();
+    });
+
+    fileInput.addEventListener('change', async function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        if (file.size > 10 * 1024 * 1024) {
+            alert('文件超过 10MB 限制');
+            fileInput.value = '';
+            return;
+        }
+        
+        const formData = new FormData();
+        formData.append('file', file);
+        
+        uploadBtn.textContent = '⏳ 上传中...';
+        uploadBtn.disabled = true;
+        
+        try {
+            const response = await fetch(API_BASE + '/api/upload/document', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                body: formData
+            });
+            
+            const data = await response.json();
+            if (response.ok) {
+                addDocToList(file.name);
+                alert(`✅ 上传成功！已处理 ${data.chunks} 个文档片段`);
+            } else {
+                alert('❌ 上传失败: ' + (data.detail || '未知错误'));
+            }
+        } catch (err) {
+            alert('❌ 上传失败: ' + err.message);
+        } finally {
+            uploadBtn.textContent = '📄 上传文档';
+            uploadBtn.disabled = false;
+            fileInput.value = '';
+        }
+    });
+}
+
 // ============================================================
 // 启动
 // ============================================================
 async function init() {
     await refreshAll();
+    renderDocList();
     inputEl.focus();
 }
 
@@ -492,7 +622,6 @@ voiceInputBtn.addEventListener('click', async function() {
             const module = await import('./voice.js');
             window.voiceModuleLoaded = true;
             console.log('✅ 语音模块已加载');
-            // 如果模块有初始化函数，调用它
             if (module.initVoice) {
                 module.initVoice();
             }
@@ -516,7 +645,6 @@ themeBtn.addEventListener('click', async function() {
             console.error('暗黑模式模块加载失败:', err);
         }
     } else {
-        // 如果已加载，直接调用
         if (window.toggleTheme) {
             window.toggleTheme();
         }

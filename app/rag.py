@@ -1,100 +1,79 @@
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_community.vectorstores import Chroma
-from langchain_community.document_loaders import TextLoader, PyPDFLoader, Docx2txtLoader
-from app.config import Config
 import os
 import tempfile
+from typing import Dict, List
+from app.config import Config
 
-# 使用 HuggingFace 的免费 embedding 模型
-# 首次使用时会自动下载（约 100MB）
-embeddings = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
-)
+# ============================================================
+# 存储用户上传的文档内容
+# ============================================================
+_user_docs: Dict[str, str] = {}
 
-def get_vector_store(collection_name: str):
-    """获取向量数据库实例"""
-    return Chroma(
-        collection_name=collection_name,
-        embedding_function=embeddings,
-        persist_directory=Config.VECTOR_DB_PATH
-    )
-
-def process_document(file_content: bytes, filename: str) -> list:
-    """
-    处理上传的文档，返回文本内容
-    支持 PDF、Word、TXT
-    """
-    # 获取文件扩展名
+def read_file_content(file_content: bytes, filename: str) -> str:
+    """读取文件内容为纯文本"""
     ext = filename.split('.')[-1].lower()
     
-    # 保存为临时文件
     with tempfile.NamedTemporaryFile(delete=False, suffix=f".{ext}") as tmp:
         tmp.write(file_content)
         tmp_path = tmp.name
     
     try:
-        # 根据文件类型加载
         if ext == 'pdf':
-            loader = PyPDFLoader(tmp_path)
+            from pypdf import PdfReader
+            reader = PdfReader(tmp_path)
+            text = ""
+            for page in reader.pages:
+                text += page.extract_text() or ""
+            return text
         elif ext == 'docx':
-            loader = Docx2txtLoader(tmp_path)
-        else:  # txt 或其他
-            loader = TextLoader(tmp_path, encoding='utf-8')
-        
-        documents = loader.load()
-        return documents
+            import docx2txt
+            return docx2txt.process(tmp_path)
+        else:
+            with open(tmp_path, 'r', encoding='utf-8') as f:
+                return f.read()
     finally:
-        # 删除临时文件
         os.unlink(tmp_path)
 
-def split_documents(documents, chunk_size=500, chunk_overlap=50):
-    """将文档切成小块，便于检索"""
-    text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=chunk_size,
-        chunk_overlap=chunk_overlap,
-        separators=["\n\n", "\n", "。", "！", "？", "，", " ", ""]
-    )
-    return text_splitter.split_documents(documents)
 
 def add_documents_to_store(file_content: bytes, filename: str, user_id: str) -> int:
-    """处理并添加文档到向量数据库"""
-    # 1. 加载文档
-    documents = process_document(file_content, filename)
+    """存储文档全文（直接存，不切分、不向量化）"""
+    import logging
+    logger = logging.getLogger(__name__)
     
-    # 2. 切成小块
-    chunks = split_documents(documents)
+    logger.info("📖 开始读取文档...")
+    text = read_file_content(file_content, filename)
+    if not text:
+        logger.warning("⚠️ 文档内容为空")
+        return 0
     
-    # 3. 存入向量数据库（按用户隔离）
-    collection_name = f"user_{user_id}"
-    vector_store = get_vector_store(collection_name)
+    # 限制长度，防止超 token
+    if len(text) > 5000:
+        text = text[:5000] + "\n...(文档过长，已截取前5000字符)"
     
-    # 添加文档
-    vector_store.add_documents(chunks)
-    vector_store.persist()
-    
-    return len(chunks)
+    _user_docs[user_id] = text
+    logger.info(f"✅ 已存储文档: {filename}，共 {len(text)} 字符")
+    return 1
 
-def search_similar(query: str, user_id: str, k: int = 5) -> list:
-    """搜索与查询相关的文档片段"""
-    collection_name = f"user_{user_id}"
-    vector_store = get_vector_store(collection_name)
-    
-    # 检查是否有数据
-    try:
-        results = vector_store.similarity_search(query, k=k)
-        return results
-    except Exception:
-        return []
 
 def get_rag_context(query: str, user_id: str) -> str:
-    """获取 RAG 上下文（用于提示词）"""
-    results = search_similar(query, user_id, k=5)
-    if not results:
+    """直接返回用户上传的文档全文"""
+    if user_id not in _user_docs:
         return ""
     
-    context_parts = ["以下是从文档中检索到的相关信息：\n"]
-    for i, doc in enumerate(results, 1):
-        context_parts.append(f"{i}. {doc.page_content}\n")
-    
-    return "\n".join(context_parts)
+    doc_content = _user_docs[user_id]
+    return f"""
+用户上传了一份文档，全文如下：
+---
+{doc_content}
+---
+请严格根据以上文档内容回答用户的问题。
+如果文档中没有相关信息，请直接说"文档中未找到相关内容"。
+绝对不要说"我无法访问文件"或"我没有看到文档"，因为文档内容已经提供给你了。
+"""
+
+
+def delete_user_store(user_id: str) -> bool:
+    """删除用户的文档"""
+    if user_id in _user_docs:
+        del _user_docs[user_id]
+        return True
+    return False

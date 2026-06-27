@@ -502,6 +502,29 @@
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="🔍 搜索消息..." />
         </div>
+        <!-- ===== 新增：知识库区域 ===== -->
+        <div class="knowledge-section" style="
+        padding: 10px 14px;
+        border-bottom: 1px solid #e2e8f0;
+        max-height: 120px;
+        overflow-y: auto;
+        ">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+           
+            <span id="docCount" style="font-size: 12px; color: #94a3b8;">0 个文档</span>
+        </div>
+        <div id="docList" style="font-size: 13px; color: #64748b;">
+            <span style="color: #94a3b8; font-size: 12px;">暂无文档</span>
+        </div>
+        </div>
+
+        <div class="history-list" id="historyList">
+        <div class="empty-history">加载中...</div>
+        </div>
+
+
+
+
         <div class="history-list" id="historyList">
             <div class="empty-history">加载中...</div>
         </div>
@@ -515,6 +538,16 @@
             <button class="btn-icon" id="exportBtn" title="导出聊天记录">📥</button>
             <button class="btn-icon" id="themeBtn" title="切换暗黑模式">🌙</button>
             <button class="btn-icon" id="voiceOutputBtn">🔊</button>
+            <button id="uploadBtn" style="
+                padding: 4px 12px;
+                background: none;
+                border: 1px solid #d0d7de;
+                border-radius: 6px;
+                font-size: 13px;
+                cursor: pointer;
+                color: #1e293b;
+            ">📄 上传文档</button>
+            <input type="file" id="fileInput" accept=".pdf,.docx,.txt" style="display:none;">
             <select id="modelSelect">
                 <option value="glm-4-flash">⚡ 智谱GLM-4-Flash</option>
                 <option value="glm-4-plus">🧠 智谱GLM-4-Plus</option>
