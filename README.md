@@ -1,4 +1,4 @@
-\# 🤖 AI 聊天机器人
+# 🤖 AI 聊天机器人
 
 
 
@@ -8,63 +8,63 @@
 
 
 
-\## ✨ 功能特性
+## ✨ 功能特性
 
 
 
-\### 用户系统
+### 用户系统
 
-\- 注册 / 登录 / JWT 认证
+- 注册 / 登录 / JWT 认证
 
-\- 每个用户独立会话空间
+- 每个用户独立会话空间
 
-\- 密码加密存储
-
-
-
-\### 聊天功能
-
-\- 流式输出（打字机效果）
-
-\- 多模型切换（智谱 GLM-4-Flash / GLM-4-Plus / DeepSeek V3 / DeepSeek R1）
-
-\- 上下文记忆（最近 10 条消息）
-
-\- 消息复制
+- 密码加密存储
 
 
 
-\### 交互体验
+### 聊天功能
 
-\- 语音输入（🎤 麦克风）
+- 流式输出（打字机效果）
 
-\- 语音输出（🔊 朗读）
+- 多模型切换（智谱 GLM-4-Flash / GLM-4-Plus / DeepSeek V3 / DeepSeek R1）
 
-\- 暗黑模式（🌙 一键切换）
+- 上下文记忆（最近 10 条消息）
 
-\- 消息搜索
-
-\- 导出聊天记录（TXT）
-
-\- 重命名对话
+- 消息复制
 
 
 
-\### 知识库管理
+### 交互体验
 
-\- 上传文档（支持 PDF / Word / TXT）
+- 语音输入（🎤 麦克风）
 
-\- 文档列表管理
+- 语音输出（🔊 朗读）
+
+- 暗黑模式（🌙 一键切换）
+
+- 消息搜索
+
+- 导出聊天记录（TXT）
+
+- 重命名对话
+
+
+
+### 知识库管理
+
+- 上传文档（支持 PDF / Word / TXT）
+
+- 文档列表管理
 
 
 
 
 
-\## 🛠️ 技术栈
+## 🛠️ 技术栈
 
 
 
-\### 前端
+### 前端
 
 | 技术 | 说明 |
 
@@ -88,7 +88,7 @@
 
 
 
-\### 后端
+### 后端
 
 | 技术 | 说明 |
 
@@ -112,7 +112,7 @@
 
 
 
-\### AI 与集成
+### AI 与集成
 
 | 技术 | 说明 |
 
@@ -128,7 +128,7 @@
 
 
 
-\### 第三方库
+### 第三方库
 
 ```
 
@@ -158,7 +158,7 @@ numpy
 
 
 
-\## 📁 项目结构
+## 📁 项目结构
 
 ```
 
@@ -222,7 +222,7 @@ my\_ai\_app/
 
 
 
-\## 🚀 快速开始
+## 🚀 快速开始
 
 ```
 
@@ -282,35 +282,35 @@ uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 
 
 
-\## API 接口
+## API 接口
 
 ```
 
-方法	路径	说明
+方法	  路径	                    说明
 
-POST	/api/register	用户注册
+POST	 /api/register	            用户注册
 
-POST	/api/login	用户登录
+POST	 /api/login	                用户登录
 
-GET	/api/sessions	获取会话列表
+GET	   /api/sessions	            获取会话列表
 
-POST	/api/sessions	创建新会话
+POST	 /api/sessions	            创建新会话
 
-DELETE	/api/sessions/{id}	删除会话
+DELETE	/api/sessions/{id}	      删除会话
 
-GET	/api/sessions/{id}/messages	获取会话消息
+GET	   /api/sessions/{id}/messages	获取会话消息
 
-POST	/chat	发送消息（流式）
+POST	/chat	                      发送消息（流式）
 
-POST	/api/upload/document	上传文档
+POST	/api/upload/document	      上传文档
 
-GET	/ping	健康检查\\
+GET	  /ping	                      健康检查
 
 ```
 
 
 
-学习路线（涵盖的知识点）
+### 学习路线（涵盖的知识点）
 
 第一阶段：基础认知
 
@@ -368,12 +368,9 @@ GET	/ping	健康检查\\
 
 
 可证
-
 MIT
 
 
-
 作者
-
 leaf-6
 
